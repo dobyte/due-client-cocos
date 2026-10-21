@@ -6,7 +6,9 @@
   "type": "module",
   "scripts": {
     "server": "tsx mock-server.ts",
-    "test": "tsx network.test.ts"
+    "bridge": "tsx tcp-bridge.ts",
+    "test": "tsx security.test.ts && tsx network.test.ts",
+    "test:gate": "tsx gate.test.ts"
   },
   "devDependencies": {
     "@types/node": "^20.11.0",
