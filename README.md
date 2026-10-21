@@ -600,6 +600,23 @@ const client = new Client({
 
 * `NetworkTest.ts` 依赖 Cocos Creator 的 `cc` 模块；仓库根目录提供了 `types/cc.d.ts` 最小声明与 `tsconfig.json`，因此在仓库内独立类型检查（`tsc -p tsconfig.json`）不会报错。将 `assets/scripts` 拷贝进 Cocos 工程后会使用编辑器自带的完整 `cc` 类型，`types/` 与根目录 `tsconfig.json` 不会随拷贝进入工程。
 
+### 14.发布
+
+仓库内置 GitHub Actions 自动发布流程：[.github/workflows/release.yml](.github/workflows/release.yml)。
+
+- 触发方式：
+  - 推送 `v*` 标签（如 `v1.0.1`）；
+  - 或在 Actions 页面手动触发 `Release` 工作流并填写标签。
+- 发布流程：安装 `tools` 依赖 → TypeScript 类型检查 → 运行全部测试 → 打包 `assets/scripts` 与 README → 创建或更新 GitHub Release。
+- 发布产物：`due-client-cocos-<tag>.zip`，解压后即为可拷贝到 Cocos 工程的 `scripts` 目录。
+
+```bash
+git tag v1.0.1
+git push origin v1.0.1
+```
+
+> Cocos 客户端以源码目录分发，不发布到 npm；工作流使用仓库默认的 `GITHUB_TOKEN` 创建 Release，无需额外 Secrets。
+
 ## License
 
 [MIT](https://tldrlegal.com/license/mit-license)
